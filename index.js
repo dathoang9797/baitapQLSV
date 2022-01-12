@@ -319,28 +319,17 @@ const resetForm = () => {
   spanHoaSinhVienEl.innerText = '';
 };
 
-const filterSinhVien = (type) => {
+const timTenSinhVien = (e) => {
   const searchVal = searchEl.value.trim().toLowerCase();
   if (!searchVal.length) {
     return renderSinhVien(danhSachSinhVien);
   }
 
-  if (!type) {
+  if (e.type === 'click' || e.key === 'Enter') {
     const sinhVienFilterArr = danhSachSinhVien.filter((sinhVien) => {
       return sinhVien.ten.toLowerCase().indexOf(searchVal) > -1;
     });
-    renderSinhVien(sinhVienFilterArr);
-  }
-};
-
-const timTenSinhVien = (e) => {
-  switch (true) {
-    case e.type === 'click':
-      filterSinhVien();
-      return;
-    case e.type === 'keyup':
-      filterSinhVien(e.type);
-      return;
+    return renderSinhVien(sinhVienFilterArr);
   }
 };
 
@@ -349,6 +338,3 @@ searchEl.addEventListener('keyup', timTenSinhVien);
 
 checkLocalStorage(LOCALSTORAGE_DSSV);
 renderSinhVien(danhSachSinhVien);
-function newFunction() {
-  debugger;
-}
