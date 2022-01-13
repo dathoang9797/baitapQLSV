@@ -137,6 +137,12 @@ const validationForm = () => {
           isValid = false;
           return;
         }
+
+        if (!itemForm.value.includes('SV', 0)) {
+          spanMaSinhVienEl.innerText = 'Mã bắt đầu bằng SV vui lòng viết hoa';
+          isValid = false;
+          return;
+        }
         spanMaSinhVienEl.innerText = '';
         return;
       }
