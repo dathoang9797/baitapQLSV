@@ -95,25 +95,6 @@ const layThongTin = () => {
   return sinhVien;
 };
 
-const validationEmail = (value) => {
-  const mailFormat =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\ [[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  if (value.match(mailFormat)) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-const validationPassword = (value) => {
-  const passwordFormat = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$/;
-  if (value.match(passwordFormat)) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 const kiemTraMaSV = (newSV, arrSV) => {
   if (!arrSV.length) return true;
   const maSV = newSV.ma;
@@ -122,6 +103,33 @@ const kiemTraMaSV = (newSV, arrSV) => {
     if (currentSV.ma === maSV) {
       return false;
     }
+  }
+  return true;
+};
+
+const validationEmail = (value) => {
+  const mailFormat =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\ [[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (!value.match(mailFormat)) {
+    return false;
+  }
+  return true;
+};
+
+const validationPassword = (value) => {
+  const passwordFormat = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$/;
+  if (!value.match(passwordFormat)) {
+    return false;
+  }
+  return true;
+};
+
+const validationTenSinhVien = (value) => {
+  const tenSinhVienFormat =
+    /^[a-zA-Z_áàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịúùủũụưứừửữựýỳỷỹỵđÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÍÌỈĨỊÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴĐ\s]+$/gu;
+
+  if (!value.match(tenSinhVienFormat)) {
+    return false;
   }
   return true;
 };
@@ -153,6 +161,13 @@ const validationForm = () => {
           isValid = false;
           return;
         }
+
+        if (!validationTenSinhVien(itemForm.value)) {
+          spanTenSinhVienEl.innerText = 'Vui lòng nhập các ký tự aphabet, vì tên không có số';
+          isValid = false;
+          return;
+        }
+
         spanTenSinhVienEl.innerText = '';
         return;
       }
@@ -243,7 +258,6 @@ const validationForm = () => {
       }
 
       case itemForm.id === txtDiemToan: {
-        console.log(itemForm.value);
         if (!itemForm.value.length) {
           spanToanSinhVienEl.innerText = 'Vui lòng nhập dữ liệu';
           isValid = false;
@@ -304,12 +318,14 @@ const suaSinhVien = (ma) => {
 };
 
 const capNhatSV = () => {
+  const checkIsValid = validationForm();
   const sinhVien = layThongTin();
   const viTri = timViTri(sinhVien.ma, danhSachSinhVien);
-  if (viTri !== -1) {
+  if (viTri !== -1 && checkIsValid) {
     danhSachSinhVien[viTri] = sinhVien;
     storeDataToLocalStorage(LOCALSTORAGE_DSSV, danhSachSinhVien);
     renderSinhVien(danhSachSinhVien);
+    resetForm();
   }
 };
 
