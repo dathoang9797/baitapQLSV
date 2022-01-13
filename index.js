@@ -209,6 +209,12 @@ const validationForm = () => {
           isValid = false;
           return;
         }
+
+        if (isNaN(+itemForm.value)) {
+          spanLySinhVienEl.innerText = 'Vui lòng nhập số';
+          isValid = false;
+          return;
+        }
         spanLySinhVienEl.innerText = '';
         return;
       }
@@ -219,13 +225,26 @@ const validationForm = () => {
           isValid = false;
           return;
         }
+
+        if (isNaN(+itemForm.value)) {
+          spanHoaSinhVienEl.innerText = 'Vui lòng nhập số';
+          isValid = false;
+          return;
+        }
+
         spanHoaSinhVienEl.innerText = '';
         return;
       }
 
       case itemForm.id === txtDiemToan: {
+        console.log(itemForm.value);
         if (!itemForm.value.length) {
           spanToanSinhVienEl.innerText = 'Vui lòng nhập dữ liệu';
+          isValid = false;
+          return;
+        }
+        if (isNaN(+itemForm.value)) {
+          spanToanSinhVienEl.innerText = 'Vui lòng nhập số';
           isValid = false;
           return;
         }
