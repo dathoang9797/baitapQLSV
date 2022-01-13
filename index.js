@@ -216,7 +216,7 @@ const validationForm = () => {
           return;
         }
 
-        if (isNaN(+itemForm.value)) {
+        if (isNaN(+itemForm.value.split(',').join('.'))) {
           spanLySinhVienEl.innerText = 'Vui lòng nhập số';
           isValid = false;
           return;
@@ -232,7 +232,7 @@ const validationForm = () => {
           return;
         }
 
-        if (isNaN(+itemForm.value)) {
+        if (isNaN(+itemForm.value.split(',').join('.'))) {
           spanHoaSinhVienEl.innerText = 'Vui lòng nhập số';
           isValid = false;
           return;
@@ -249,7 +249,7 @@ const validationForm = () => {
           isValid = false;
           return;
         }
-        if (isNaN(+itemForm.value)) {
+        if (isNaN(+itemForm.value.split(',').join('.'))) {
           spanToanSinhVienEl.innerText = 'Vui lòng nhập số';
           isValid = false;
           return;
