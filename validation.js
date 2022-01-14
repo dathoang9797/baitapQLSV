@@ -43,19 +43,22 @@ const validationForm = () => {
   const inputFields = document.querySelectorAll('form input,form select');
   const spanFields = document.querySelectorAll('form span');
   inputFields.forEach((itemForm, index) => {
-    if (!itemForm.value.length) {
-      spanFields[index].innerText = 'Vui lòng nhập dữ liệu';
-      isValid = false;
-      return;
-    }
-
     switch (true) {
+      case !itemForm.value.length: {
+        spanFields[index].innerText = 'Vui lòng nhập dữ liệu';
+        isValid = false;
+        return;
+      }
       case itemForm === maSinhVienEl: {
         if (!itemForm.value.includes('SV', 0)) {
           spanFields[index].innerText = 'Mã bắt đầu bằng SV vui lòng viết hoa';
           isValid = false;
           return;
         }
+        if (!spanFields[index].innerText.length) {
+          return;
+        }
+
         spanFields[index].innerText = '';
         return;
       }
@@ -65,6 +68,10 @@ const validationForm = () => {
           isValid = false;
           return;
         }
+        if (!spanFields[index].innerText.length) {
+          return;
+        }
+
         spanFields[index].innerText = '';
         return;
       }
@@ -74,6 +81,10 @@ const validationForm = () => {
           isValid = false;
           return;
         }
+        if (!spanFields[index].innerText.length) {
+          return;
+        }
+
         spanFields[index].innerText = '';
         return;
       }
@@ -83,6 +94,10 @@ const validationForm = () => {
           isValid = false;
           return;
         }
+        if (!spanFields[index].innerText.length) {
+          return;
+        }
+
         spanFields[index].innerText = '';
         return;
       }
@@ -92,10 +107,17 @@ const validationForm = () => {
           isValid = false;
           return;
         }
+        if (!spanFields[index].innerText.length) {
+          return;
+        }
+
         spanFields[index].innerText = '';
         return;
       }
       default: {
+        if (!spanFields[index].innerText.length) {
+          return;
+        }
         spanFields[index].innerText = '';
         return;
       }
