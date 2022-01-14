@@ -4,6 +4,7 @@ const kiemTraMaSV = (newSV, arrSV) => {
   for (let index = 0; index < arrSV.length; index++) {
     const currentSV = arrSV[index];
     if (currentSV.ma === maSV) {
+      spanMaSinhVienEl.innerText = 'Mã sinh viên không được trùng nhau';
       return false;
     }
   }

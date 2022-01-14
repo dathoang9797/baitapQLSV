@@ -20,3 +20,4 @@ const khoaHocSinhVienEl = document.getElementById('slKhoaHoc');
 const diemToanSinhVienEl = document.getElementById('txtDiemToan');
 const diemLySinhVienEl = document.getElementById('txtDiemLy');
 const diemHoaSinhVienEl = document.getElementById('txtDiemHoa');
+const btnThemSVEl = document.getElementById('themSV');

@@ -77,15 +77,11 @@ const timViTri = (ma, danhSachSinhVien) => {
 
 const themSinhVien = () => {
   const sinhVien = layThongTin();
-  const checkMaSV = kiemTraMaSV(sinhVien, danhSachSinhVien);
-  if (checkMaSV) {
-    const checkIsValidVal = validationForm();
-    if (checkIsValidVal) {
-      danhSachSinhVien.push(sinhVien);
-      storeDataToLocalStorage(LOCALSTORAGE_DSSV, danhSachSinhVien);
-      renderSinhVien(danhSachSinhVien);
-      resetForm();
-    }
+  if (kiemTraMaSV(sinhVien, danhSachSinhVien) && validationForm()) {
+    danhSachSinhVien.push(sinhVien);
+    storeDataToLocalStorage(LOCALSTORAGE_DSSV, danhSachSinhVien);
+    renderSinhVien(danhSachSinhVien);
+    resetForm();
   }
 };
 
@@ -93,12 +89,12 @@ const capNhatSV = () => {
   const sinhVien = layThongTin();
   const viTri = timViTri(sinhVien.ma, danhSachSinhVien);
   if (viTri !== -1) {
-    const checkIsValidVal = validationForm();
-    if (checkIsValidVal) {
+    if (validationForm()) {
       danhSachSinhVien[viTri] = sinhVien;
       storeDataToLocalStorage(LOCALSTORAGE_DSSV, danhSachSinhVien);
       renderSinhVien(danhSachSinhVien);
       resetForm();
+      btnThemSVEl.disabled = false;
     }
   }
 };
@@ -109,10 +105,13 @@ const xoaSV = (ma) => {
     danhSachSinhVien.splice(viTri, 1);
     storeDataToLocalStorage(LOCALSTORAGE_DSSV, danhSachSinhVien);
     renderSinhVien(danhSachSinhVien);
+    resetForm();
+    btnThemSVEl.disabled = false;
   }
 };
 
 const suaSinhVien = (ma) => {
+  btnThemSVEl.disabled = true;
   const viTri = timViTri(ma, danhSachSinhVien);
   if (viTri !== -1) {
     const currentSV = danhSachSinhVien[viTri];
@@ -149,6 +148,7 @@ const resetForm = () => {
   spanToanSinhVienEl.innerText = '';
   spanLySinhVienEl.innerText = '';
   spanHoaSinhVienEl.innerText = '';
+  btnThemSVEl.disabled = false;
 };
 
 const timTenSinhVien = (e) => {
