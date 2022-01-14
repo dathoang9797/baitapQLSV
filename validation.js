@@ -48,46 +48,57 @@ const validationForm = () => {
       return;
     }
 
-    if (itemForm === maSinhVienEl) {
-      if (!itemForm.value.includes('SV', 0)) {
-        spanFields[index].innerText = 'Mã bắt đầu bằng SV vui lòng viết hoa';
-        isValid = false;
+    switch (true) {
+      case itemForm === maSinhVienEl: {
+        if (!itemForm.value.includes('SV', 0)) {
+          spanFields[index].innerText = 'Mã bắt đầu bằng SV vui lòng viết hoa';
+          isValid = false;
+          return;
+        }
+        spanFields[index].innerText = '';
         return;
       }
-    }
-
-    if (itemForm === tenSinhVienEl) {
-      if (!validationTenSinhVien(itemForm.value)) {
-        spanFields[index].innerText = 'Vui lòng nhập các ký tự aphabet, vì tên không có số';
-        isValid = false;
+      case itemForm === tenSinhVienEl: {
+        if (!validationTenSinhVien(itemForm.value)) {
+          spanFields[index].innerText = 'Vui lòng nhập các ký tự aphabet, vì tên không có số';
+          isValid = false;
+          return;
+        }
+        spanFields[index].innerText = '';
         return;
       }
-    }
-
-    if (itemForm === emailSinhVienEl) {
-      if (!validationEmail(itemForm.value)) {
-        spanFields[index].innerText = 'Email không hợp lệ';
-        isValid = false;
+      case itemForm === emailSinhVienEl: {
+        if (!validationEmail(itemForm.value)) {
+          spanFields[index].innerText = 'Email không hợp lệ';
+          isValid = false;
+          return;
+        }
+        spanFields[index].innerText = '';
         return;
       }
-    }
-
-    if (itemForm === passSinhVienEl) {
-      if (!validationPassword(itemForm.value)) {
-        spanFields[index].innerText = 'Password không hợp lệ, phái có ký tự in hoa,số,ký tự đặt biệt và dài hơn 8 ký tự';
-        isValid = false;
+      case itemForm === passSinhVienEl: {
+        if (!validationPassword(itemForm.value)) {
+          spanFields[index].innerText = 'Password không hợp lệ, phái có ký tự in hoa,số,ký tự đặt biệt và dài hơn 8 ký tự';
+          isValid = false;
+          return;
+        }
+        spanFields[index].innerText = '';
         return;
       }
-    }
-
-    if (itemForm === diemLySinhVienEl || itemForm === diemHoaSinhVienEl || itemForm === diemToanSinhVienEl) {
-      if (isNaN(+itemForm.value.split(',').join('.'))) {
-        spanFields[index].innerText = 'Vui lòng nhập số';
-        isValid = false;
+      case itemForm === diemLySinhVienEl || itemForm === diemHoaSinhVienEl || itemForm === diemToanSinhVienEl: {
+        if (isNaN(+itemForm.value.split(',').join('.'))) {
+          spanFields[index].innerText = 'Vui lòng nhập số';
+          isValid = false;
+          return;
+        }
+        spanFields[index].innerText = '';
+        return;
+      }
+      default: {
+        spanFields[index].innerText = '';
         return;
       }
     }
   });
-
   return isValid;
 };
